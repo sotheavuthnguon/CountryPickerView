@@ -74,6 +74,11 @@ extension CountryPickerViewController {
     
     func prepareNavItem() {
         navigationItem.title = dataSource.navigationTitle
+        if #available(iOS 13.0, *) {
+          navigationController?.navigationBar.backgroundColor = .systemBackground
+        } else {
+          navigationController?.navigationBar.backgroundColor = .white
+        }
 
         // Add a close button if this is the root view controller
         if navigationController?.viewControllers.count == 1 {
@@ -90,6 +95,9 @@ extension CountryPickerViewController {
             return
         }
         searchController = UISearchController(searchResultsController:  nil)
+        if #available(iOS 13.0, *) {
+          searchController?.overrideUserInterfaceStyle = .light
+        }
         searchController?.searchResultsUpdater = self
         searchController?.dimsBackgroundDuringPresentation = false
         searchController?.hidesNavigationBarDuringPresentation = searchBarPosition == .tableViewHeader

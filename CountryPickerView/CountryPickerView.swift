@@ -157,12 +157,18 @@ public class CountryPickerView: NibView {
         let countryVc = CountryPickerViewController(style: .grouped)
         countryVc.countryPickerView = self
         if let viewController = viewController as? UINavigationController {
+            if #available(iOS 13.0, *) {
+              viewController.overrideUserInterfaceStyle = .light
+            }
             delegate?.countryPickerView(self, willShow: countryVc)
             viewController.pushViewController(countryVc, animated: true) {
                 self.delegate?.countryPickerView(self, didShow: countryVc)
             }
         } else {
             let navigationVC = UINavigationController(rootViewController: countryVc)
+            if #available(iOS 13.0, *) {
+              navigationVC.overrideUserInterfaceStyle = .light
+            }
             delegate?.countryPickerView(self, willShow: countryVc)
             viewController.present(navigationVC, animated: true) {
                 self.delegate?.countryPickerView(self, didShow: countryVc)
